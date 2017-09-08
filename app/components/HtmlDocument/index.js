@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import htmlescape from 'htmlescape';
 
 // We use this component only on the server side.
