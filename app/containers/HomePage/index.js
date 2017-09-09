@@ -10,15 +10,61 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import styled from 'styled-components';
+import { connect } from 'react-redux';
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+import messages from './messages';
+import selectors from './selectors';
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+`;
+const Button = styled.div`
+  border: 1px solid #EEE;
+  padding: 5px 10px;
+`;
+const getText = (textNum) => {
+  switch (textNum) {
+    case 'one':
+      return <FormattedMessage {...messages.header1} />;
+    case 'two':
+      return <FormattedMessage {...messages.header2} />;
+    case 'three':
+      return <FormattedMessage {...messages.header3} />;
+    default:
+      return <FormattedMessage {...messages.header0} />;
+  }
+};
+
+class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
   render() {
     return (
-      <h1>
-        <FormattedMessage {...messages.header} />
-      </h1>
+      <Wrapper>
+        {getText(this.props.switchText)}
+        <Button onClick={() => window.triggerExternalAction('switchText', 'one')}>
+          click me to switch to text one
+        </Button>
+        <Button onClick={() => window.triggerExternalAction('switchText', 'two')}>
+          click me to switch to text two
+        </Button>
+        <Button onClick={() => window.triggerExternalAction('switchText', 'three')}>
+          click me to switch to text three
+        </Button>
+      </Wrapper>
     );
   }
 }
+
+HomePage.propTypes = {
+  switchText: PropTypes.string,
+};
+
+const mapStateToProps = selectors();
+
+export default connect(mapStateToProps, null)(HomePage);
