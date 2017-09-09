@@ -13,6 +13,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import ExternalActionKernel from 'components/ExternalActionKernel';
 
 export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -23,6 +24,7 @@ export default class App extends React.PureComponent { // eslint-disable-line re
   render() {
     return (
       <div>
+        <ExternalActionKernel />
         {React.Children.toArray(this.props.children)}
       </div>
     );
